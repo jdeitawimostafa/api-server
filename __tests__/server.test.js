@@ -9,62 +9,62 @@ require('dotenv').config();
 
 
 
-let id;
-describe('api server',() => {
-  it('should get a 404 status', async() => {
-    const res = await request.get('/aaa');
-    expect(res.status).toEqual(404);
-  });
 
-  it('should get a 404 status', async() => {
-    const res = await request.patch('/api/v1/food');
-    expect(res.status).toBe(404);
-  });
-
-  it('should create a new food using post method and get a 201 status', async() => {
+describe( 'food api', () => {
+  let id;
+  // Test create method
+  it( 'should create food using POST', async () => {
+    // arrange
     let food = {
-      name:'rice',
-      size:'xl',
-    };
-    const res = await request.post('/api/v1/food').send(food);
-    expect(res.status).toBe(201);
-    expect(res.body.name).toEqual('rice');
-    expect(res.body.size).toEqual('xl');
-    expect(res.body._id.length).toBeGreaterThan(0);
-    id = res.body._id;
-  });
-
-  it('should get all food and get a 200 status', async() => {
-    const res = await request.get('/api/v1/food');
-    expect(res.status).toBe(200);
-    expect(Array.isArray(res.body)).toBeTruthy();
-  });
-
-  it('should get a specific food and get a 200 status', async() => {
-    const res = await request.get(`/api/v1/food/${id}`);
-    expect(res.status).toBe(200);
-    expect(res.body.name).toEqual('rice');
-    // expect(res.body.size).toEqual('xl');
-  });
-
-  it('should update food using put method and get a 200 status', async() => {
-    let editFood = {
-      name:'rice',
+      name: 'rise',
       size:'l',
     };
-    const res = await request.put(`/api/v1/food/${id}`).send(editFood);
-    expect(res.status).toBe(200);
-    expect(res.body.size).toBe('l');
-  });
+      //act
+    const res = await request.post( '/api/v1/food' ).send( food );
+    //assert
+    expect( res.status ).toEqual( 201 );
+    expect( res.body.name ).toEqual( 'rise' );
+    expect( res.body.size ).toEqual( 'l' );
+    expect(res.body._id.length).toBeGreaterThan(0);
+    id = res.body._id;
+  } );
+  // Test get method
+  it( 'should return food using GET', async () => {
+    const res = await request.get( '/api/v1/food' );
+    expect( res.status ).toEqual( 200 );
+    expect( Array.isArray( res.body ) ).toBeTruthy();
+  } );
+  // Test get method with id
+  it( 'should return specific food data using GET', async () => {
+    const res = await request.get( `/api/v1/food/${id}` );
+    expect( res.body[0].name ).toEqual( 'rise' );
+    expect( res.body[0].size ).toEqual( 'l' );
+    expect( res.status ).toEqual( 200 );
+  } );
+  // Test update method
+  it( 'should update specific food data using PUT', async () => {
+    // arrange
+    let food = {
+      name: 'rise',
+      size:'xl',
+    };
+    const res = await request.put( `/api/v1/food/${id}` ).send ( food );
+    // expect( res.body.name ).toEqual( 'jacket' );
+    expect( res.body.size ).toEqual( 'xl' );
+    expect( res.status ).toEqual( 200 );
+  } );
+  // Test delete method
+  it( 'should delete specific food data using PUT', async () => {
+    const res = await request.delete( `/api/v1/food/${id}` );
+    expect( res.status ).toEqual( 200 );
+  } );
+} );
 
-  it('should delete food using delete method and get 200 status', async() => {
-    const res = await request.delete(`/api/v1/food/${id}`);
-    expect(res.status).toBe(200);
-  });
-  
-});
+
+
 
 describe( 'clothes api', () => {
+  let id;
   // Test create method
   it( 'should create clothes using POST', async () => {
     // arrange
@@ -90,8 +90,8 @@ describe( 'clothes api', () => {
   // Test get method with id
   it( 'should return specific clothes data using GET', async () => {
     const res = await request.get( `/api/v1/clothes/${id}` );
-    expect( res.body.key ).toEqual( 'training' );
-    expect( res.body.type ).toEqual( 'sport' );
+    expect( res.body[0].key ).toEqual( 'training' );
+    expect( res.body[0].type ).toEqual( 'sport' );
     expect( res.status ).toEqual( 200 );
   } );
   // Test update method
@@ -107,7 +107,7 @@ describe( 'clothes api', () => {
     expect( res.status ).toEqual( 200 );
   } );
   // Test delete method
-  it( 'should update specific food data using PUT', async () => {
+  it( 'should delete specific food data using PUT', async () => {
     const res = await request.delete( `/api/v1/clothes/${id}` );
     expect( res.status ).toEqual( 200 );
   } );

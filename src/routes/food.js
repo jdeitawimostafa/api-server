@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const DataMngr = require('../models/data-collection-class.js');
-const FoodModel = require('../models/clothes.js');
+const FoodModel = require('../models/food.js');
 const food = new DataMngr(FoodModel);
 const router = express.Router();
 
