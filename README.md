@@ -30,4 +30,27 @@ npm start
   * Read a record using GET
   * Update a record using PUT
   * Destroy a record using DELETE
+
+* Endpoint: 
+**npm start**
+    * /api/v1/food : json object
+          [
+          {
+           "_id": "60a65f8c4839a32019dd4857",
+            "name": "rice",
+            "size": "l",
+            "__v": 0
+            }
+           ]
+ * /api/v1/clothes : json object 
+        [
+          {
+           "_id": "60a65f8c4839a32019dd4857",
+            "name": "T-Shirt",
+            "size": "L",
+            "__v": 0
+            }
+           ]  
+ 
+
 ***Thank you!!***
