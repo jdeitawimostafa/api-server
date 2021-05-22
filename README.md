@@ -62,9 +62,12 @@ npm start
             }
            ]  
  
+ ## **UML diagram**
  
  
- ![image](lab4.PNG)
+ 
+ 
+  ![image](lab4.PNG)
 
 ***Thank you!!***
 
